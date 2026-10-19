@@ -185,7 +185,7 @@ jobs:
       - name: Run the offline suite
         run: |
           set -eo pipefail
-          uv run pytest -q -m "not network" --timeout 300 -rs | tee pytest-report.txt
+          uv run --with "pytest-xdist>=3.6,<4" pytest -q -n auto --dist loadfile -m "not network" --timeout 300 -rs | tee pytest-report.txt
         shell: bash
         env:
           # keep CI hermetic: no live vision backends, no cloud keys
